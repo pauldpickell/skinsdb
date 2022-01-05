@@ -56,11 +56,11 @@ if minetest.global_exists("clothing") and clothing.player_textures then
 	clothing:register_on_update(skins.update_player_skin)
 end
 
---[[ Update skin on join
+-- Update skin on join
 skins.ui_context = {}
 minetest.register_on_joinplayer(function(player)
 	skins.update_player_skin(player)
-end)]]
+end)
 
 -- Randomly assign skin to new player
 minetest.register_on_joinplayer(function(player)
