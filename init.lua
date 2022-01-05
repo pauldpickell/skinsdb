@@ -2,11 +2,12 @@
 
 -- Copyright (c) 2012 cornernote, Dean Montgomery
 -- Rework 2017 by bell07
+-- Rework 2022 by Paul Pickell
 -- License: GPLv3
 
 skins = {}
 skins.modpath = minetest.get_modpath(minetest.get_current_modname())
-skins.default = "character"
+skins.default = "character_ubc11"
 
 dofile(skins.modpath.."/skin_meta_api.lua")
 dofile(skins.modpath.."/api.lua")
@@ -55,10 +56,17 @@ if minetest.global_exists("clothing") and clothing.player_textures then
 	clothing:register_on_update(skins.update_player_skin)
 end
 
--- Update skin on join
+--[[ Update skin on join
 skins.ui_context = {}
 minetest.register_on_joinplayer(function(player)
 	skins.update_player_skin(player)
+end)]]
+
+-- Randomly assign skin to new player
+minetest.register_on_joinplayer(function(player)
+	local skinlist = skins.get_skinlist()
+	local randomskin = skinlist[math.random(#skinlist)]
+	skins.set_player_skin(player, randomskin)
 end)
 
 minetest.register_on_leaveplayer(function(player)
